@@ -21,13 +21,13 @@ public class Interfaz {
 		marco m = new marco();
 		m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		m.addKeyListener(new Eventos_teclado ());
+		
 	}
 
 }
 class marco extends JFrame{
 	public marco() {
-		this.setResizable(false);
+		//this.setResizable(false);
 		setTitle("AGENDA");
 		setBounds(400,400,800,400);
 		add(new lamina());
@@ -42,23 +42,48 @@ class marco extends JFrame{
 class lamina extends JPanel{
 	public lamina() {
 		BBDD.initConnection();
+//		Lámina inferior para todo lso componentes de la interfaz - menos el menú-
 		JPanel Inferior= new JPanel ();
+//		Lámina Superior para el menú
+		JPanel Superior = new JPanel();
+		
+//		Menú superior
+		/*JMenuBar miBarra = new JMenuBar();
+//       Elementos del men�
+		JMenu archivo = new JMenu("Archivo");
+		
+		JMenu ediccion = new JMenu("Ediccion");
+		JMenu herramientas = new JMenu("Herramientas");
+		
+//       A�adimos los elementos a la barra
+		miBarra.add(archivo);
+		miBarra.add(ediccion);
+		miBarra.add(herramientas);
+//      Subelementos del elemento -Archivo-
+		JMenuItem guardar = new JMenuItem("Guardar");
+		JMenuItem guardar_como = new JMenuItem("Guardar Como");
+		
+		archivo.add(guardar);
+		archivo.add(guardar_como );*/
+		JLabel espaciado = new JLabel ("\t ");
+		JLabel espaciado2 = new JLabel ("\t");
 		id = new JLabel("ID");
 		cid= new JTextField(3);
 		nombre = new JLabel("Nombre");
-		cnombre = new JTextField(10);
+		cnombre = new JTextField(8);
 		apellido = new JLabel("Apellido");
-		capellido = new JTextField(10);
+		capellido = new JTextField(8);
 		movil = new JLabel("Movil");
-		cmovil = new JTextField(10);
+		cmovil = new JTextField(8);
 		fijo = new JLabel("Fijo");
-		cfijo = new JTextField(10);
-		anotacion = new JLabel("Anotacion");
+		cfijo = new JTextField(8);
+		anotacion = new JLabel("\t Anotacion");
 		anotacionextra = new JLabel("");
 		canotacion = new JTextArea(15,60);
 		JScrollPane laminaScrollCliente = new JScrollPane(canotacion);
 		canotacion.setLineWrap(true);
 		
+//		Creación de botones y sus funciones dentro de la interfaz
 		Crear = new JButton ("Crear");
 		Crear.addActionListener(new ActionListener() {
 			// Cramos los registros al presionar el botón.
@@ -142,6 +167,7 @@ class lamina extends JPanel{
 		Borrar= new JButton ("Borrar");
 		Borrar.addActionListener(new ActionListener() {
 
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -155,6 +181,21 @@ class lamina extends JPanel{
 			
 		});
 		id.setLocation(27, 20);
+		
+		Salir = new JButton ("Salir");
+		Salir.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.exit(1);
+			}
+			
+		});
+		
+		/*add(miBarra);
+		add(espaciado);
+		add(espaciado2);*/
 		add(id);
 		add(cid);
 		add(nombre);
@@ -177,6 +218,8 @@ class lamina extends JPanel{
 		Inferior.add(Leer);
 		Inferior.add(Modificar);
 		Inferior.add(Borrar);
+		Inferior.add(Salir);
+		
 		
 		add(Inferior, BorderLayout.SOUTH);
 		
@@ -184,94 +227,12 @@ class lamina extends JPanel{
 		
 	}
 
-	class Eventos_teclado implements  KeyListener{
-
-		@Override
-		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
-			if(e.getKeyCode() == KeyEvent.VK_C) {
-				String nom = cnombre.getText();
-				String ape = capellido.getText();
-				String mov = cmovil.getText();
-				String fij = cfijo.getText();
-				String cano = canotacion.getText();
-				
-				BBDD.Crear(nom, ape, mov, fij, cano);
-				cnombre.setText("");
-				capellido.setText("");
-				cmovil.setText("");
-				cfijo.setText("");
-				canotacion.setText("");
-				
-				JOptionPane.showMessageDialog(null, "Registro realizado con éxito");
-			}
-			
-		}
-
-		@Override
-		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
+	
 	
 	
 	private JLabel id,nombre,apellido,movil,fijo,anotacion,anotacionextra;
 	private JTextField cid,cnombre,capellido,cmovil,cfijo;
 	private JTextArea canotacion;
-	private JButton Crear,Leer,Modificar,Borrar;
+	private JButton Crear,Leer,Modificar,Borrar,Salir;
 	private static final Scanner  scanner= new Scanner(System.in);
 }
-
-class Eventos_teclado implements  KeyListener{
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-		
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getKeyCode() ==  KeyEvent.VK_ALT + KeyEvent.VK_C) {
-			String nom = cnombre.getText();
-			String ape = capellido.getText();
-			String mov = cmovil.getText();
-			String fij = cfijo.getText();
-			String cano = canotacion.getText();
-			
-			BBDD.Crear(nom, ape, mov, fij, cano);
-			cnombre.setText("");
-			capellido.setText("");
-			cmovil.setText("");
-			cfijo.setText("");
-			canotacion.setText("");
-			
-			JOptionPane.showMessageDialog(null, "Registro realizado con éxito");
-		}
-		
-	}
-	private JLabel id,nombre,apellido,movil,fijo,anotacion,anotacionextra;
-	private JTextField cid,cnombre,capellido,cmovil,cfijo;
-	private JTextArea canotacion;
-	private JButton Crear,Leer,Modificar,Borrar;
-	private static final Scanner  scanner= new Scanner(System.in);
-	
-}
-
-
