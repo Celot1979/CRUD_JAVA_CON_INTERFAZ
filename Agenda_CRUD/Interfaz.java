@@ -1,24 +1,58 @@
 package Agenda_CRUD;
 
-import java.awt.BorderLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.sql.SQLException;
-import java.util.Scanner;
-
-import javax.swing.*;
-
-
 public class Interfaz {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		marco m = new marco();
+		m.addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Abierta");
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Cerrandose");
+			}
+
+	
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Activada");
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Desactivada");
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
@@ -46,27 +80,6 @@ class lamina extends JPanel{
 		JPanel Inferior= new JPanel ();
 //		Lámina Superior para el menú
 		JPanel Superior = new JPanel();
-		
-//		Menú superior
-		/*JMenuBar miBarra = new JMenuBar();
-//       Elementos del men�
-		JMenu archivo = new JMenu("Archivo");
-		
-		JMenu ediccion = new JMenu("Ediccion");
-		JMenu herramientas = new JMenu("Herramientas");
-		
-//       A�adimos los elementos a la barra
-		miBarra.add(archivo);
-		miBarra.add(ediccion);
-		miBarra.add(herramientas);
-//      Subelementos del elemento -Archivo-
-		JMenuItem guardar = new JMenuItem("Guardar");
-		JMenuItem guardar_como = new JMenuItem("Guardar Como");
-		
-		archivo.add(guardar);
-		archivo.add(guardar_como );*/
-		JLabel espaciado = new JLabel ("\t ");
-		JLabel espaciado2 = new JLabel ("\t");
 		id = new JLabel("ID");
 		cid= new JTextField(3);
 		nombre = new JLabel("Nombre");
@@ -188,14 +201,12 @@ class lamina extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
 				System.exit(1);
 			}
 			
 		});
 		
-		/*add(miBarra);
-		add(espaciado);
-		add(espaciado2);*/
 		add(id);
 		add(cid);
 		add(nombre);
@@ -236,3 +247,6 @@ class lamina extends JPanel{
 	private JButton Crear,Leer,Modificar,Borrar,Salir;
 	private static final Scanner  scanner= new Scanner(System.in);
 }
+
+
+
