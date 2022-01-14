@@ -1,6 +1,5 @@
 package Agenda_CRUD;
-
-mport java.sql.SQLException;
+import java.sql.SQLException;
 
 import javax.swing.*;
 

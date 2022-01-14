@@ -1,12 +1,29 @@
 package Agenda_CRUD;
 
+import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import javax.swing.*;
+
+
+
+
 public class Interfaz {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		marco m = new marco();
-		//m.addWindowListener(new Ventana_adp());
+//		Hace que el objeto principal quede a la escucha del evento del ratón. Que será el encargado de al presionar el botón derecho, apareza una nueva ventana con el menú
 		m.addMouseListener(new EventosDeRaton());
 		
 		m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -14,10 +31,12 @@ public class Interfaz {
 		
 	}
 
+	
+
 }
 class marco extends JFrame{
 	public marco() {
-		//this.setResizable(false);
+		this.setResizable(false);
 		setTitle("AGENDA");
 		setBounds(400,400,800,400);
 		add(new lamina());
@@ -31,11 +50,9 @@ class marco extends JFrame{
 
 class lamina extends JPanel{
 	public lamina() {
+//		Se llama a la función de conectar con la BBDD
 		BBDD.initConnection();
-//		Lámina inferior para todo lso componentes de la interfaz - menos el menú-
 		JPanel Inferior= new JPanel ();
-//		Lámina Superior para el menú
-		JPanel Superior = new JPanel();
 		id = new JLabel("ID");
 		cid= new JTextField(3);
 		nombre = new JLabel("Nombre");
@@ -53,7 +70,7 @@ class lamina extends JPanel{
 		canotacion.setLineWrap(true);
 		
 //		Creación de botones y sus funciones dentro de la interfaz
-		Crear = new JButton ("Crear");
+		Crear = new JButton (" REGISTRAR ");
 		Crear.addActionListener(new ActionListener() {
 			// Cramos los registros al presionar el botón.
 			@Override
@@ -76,10 +93,13 @@ class lamina extends JPanel{
 				canotacion.setText("");
 				
 				JOptionPane.showMessageDialog(null, "Registro realizado con éxito");
+//				Después de crear el registro se crea un nuevo objeto de Ventana de registros para que nos proporcione la info de los registros actualizada.
+				marco_Registro mr2 = new marco_Registro();
+				mr2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}
 			
 		});
-		Leer = new JButton ("Leer");
+		Leer = new JButton ("MOSTRAR REGISTROS ");
 		Leer.addActionListener(new ActionListener() {
 
 			@Override
@@ -92,7 +112,7 @@ class lamina extends JPanel{
 			}
 			
 		});
-		Modificar = new JButton ("Modificar ");
+		Modificar = new JButton (" MODIFICAR REGISTROS ");
 		Modificar.addActionListener(new ActionListener() {
 
 			@Override
@@ -117,6 +137,7 @@ class lamina extends JPanel{
 				try {
 					BBDD.ModificarDatos(resultado_id , nombre, apellido, movil,fijo,anotacion);
 					System.out.println("Se ha modificado correctamente");
+					//Crea una nueva ventana creando un nuevo de el Jframe de la clase Ventana_Registros.
 					marco_Registro Lerr_modificacion= new marco_Registro();
 					Thread.sleep(2000);
 					cid.setText("");
@@ -125,7 +146,9 @@ class lamina extends JPanel{
 					cmovil.setText("");
 					cfijo.setText("");
 					canotacion.setText("");
+//					Cuando se modifica un registro, automaticamente se despliega una ventana con la info actualizada
 					Lerr_modificacion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					
 				} catch (SQLException | InterruptedException e1) {
 					// TODO Auto-generated catch block
 					System.out.println("No se ha podido modificar");
@@ -133,7 +156,7 @@ class lamina extends JPanel{
 			}
 			
 		});
-		Borrar= new JButton ("Borrar");
+		Borrar= new JButton ("BORRAR REGISTRO ");
 		Borrar.addActionListener(new ActionListener() {
 
 
@@ -151,7 +174,7 @@ class lamina extends JPanel{
 		});
 		id.setLocation(27, 20);
 		
-		Salir = new JButton ("Salir");
+		Salir = new JButton (" SALIR ");
 		Salir.addActionListener(new ActionListener() {
 
 			@Override
@@ -206,13 +229,31 @@ class lamina extends JPanel{
 
 
 
+
+import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import javax.swing.*;
+
+
+
+
 public class Interfaz {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		marco m = new marco();
-		//m.addWindowListener(new Ventana_adp());
+//		Hace que el objeto principal quede a la escucha del evento del ratón. Que será el encargado de al presionar el botón derecho, apareza una nueva ventana con el menú
 		m.addMouseListener(new EventosDeRaton());
 		
 		m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -220,10 +261,12 @@ public class Interfaz {
 		
 	}
 
+	
+
 }
 class marco extends JFrame{
 	public marco() {
-		//this.setResizable(false);
+		this.setResizable(false);
 		setTitle("AGENDA");
 		setBounds(400,400,800,400);
 		add(new lamina());
@@ -237,11 +280,9 @@ class marco extends JFrame{
 
 class lamina extends JPanel{
 	public lamina() {
+//		Se llama a la función de conectar con la BBDD
 		BBDD.initConnection();
-//		Lámina inferior para todo lso componentes de la interfaz - menos el menú-
 		JPanel Inferior= new JPanel ();
-//		Lámina Superior para el menú
-		JPanel Superior = new JPanel();
 		id = new JLabel("ID");
 		cid= new JTextField(3);
 		nombre = new JLabel("Nombre");
@@ -259,7 +300,7 @@ class lamina extends JPanel{
 		canotacion.setLineWrap(true);
 		
 //		Creación de botones y sus funciones dentro de la interfaz
-		Crear = new JButton ("Crear");
+		Crear = new JButton (" REGISTRAR ");
 		Crear.addActionListener(new ActionListener() {
 			// Cramos los registros al presionar el botón.
 			@Override
@@ -282,10 +323,13 @@ class lamina extends JPanel{
 				canotacion.setText("");
 				
 				JOptionPane.showMessageDialog(null, "Registro realizado con éxito");
+//				Después de crear el registro se crea un nuevo objeto de Ventana de registros para que nos proporcione la info de los registros actualizada.
+				marco_Registro mr2 = new marco_Registro();
+				mr2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}
 			
 		});
-		Leer = new JButton ("Leer");
+		Leer = new JButton ("MOSTRAR REGISTROS ");
 		Leer.addActionListener(new ActionListener() {
 
 			@Override
@@ -298,7 +342,7 @@ class lamina extends JPanel{
 			}
 			
 		});
-		Modificar = new JButton ("Modificar ");
+		Modificar = new JButton (" MODIFICAR REGISTROS ");
 		Modificar.addActionListener(new ActionListener() {
 
 			@Override
@@ -323,6 +367,7 @@ class lamina extends JPanel{
 				try {
 					BBDD.ModificarDatos(resultado_id , nombre, apellido, movil,fijo,anotacion);
 					System.out.println("Se ha modificado correctamente");
+					//Crea una nueva ventana creando un nuevo de el Jframe de la clase Ventana_Registros.
 					marco_Registro Lerr_modificacion= new marco_Registro();
 					Thread.sleep(2000);
 					cid.setText("");
@@ -331,7 +376,9 @@ class lamina extends JPanel{
 					cmovil.setText("");
 					cfijo.setText("");
 					canotacion.setText("");
+//					Cuando se modifica un registro, automaticamente se despliega una ventana con la info actualizada
 					Lerr_modificacion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					
 				} catch (SQLException | InterruptedException e1) {
 					// TODO Auto-generated catch block
 					System.out.println("No se ha podido modificar");
@@ -339,7 +386,7 @@ class lamina extends JPanel{
 			}
 			
 		});
-		Borrar= new JButton ("Borrar");
+		Borrar= new JButton ("BORRAR REGISTRO ");
 		Borrar.addActionListener(new ActionListener() {
 
 
@@ -357,7 +404,7 @@ class lamina extends JPanel{
 		});
 		id.setLocation(27, 20);
 		
-		Salir = new JButton ("Salir");
+		Salir = new JButton (" SALIR ");
 		Salir.addActionListener(new ActionListener() {
 
 			@Override
