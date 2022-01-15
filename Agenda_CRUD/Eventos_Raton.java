@@ -18,10 +18,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
 /*
  * En la 1a Clase se crea para tener un evento del ratón, que al ser presionado el botón derecho llame a JFRame y a el JPanel
  */
-class EventosDeRaton extends MouseAdapter{
+/*class EventosDeRaton extends MouseAdapter{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -29,6 +30,7 @@ class EventosDeRaton extends MouseAdapter{
 		if (e.getModifiersEx() == 4096) {
 			System.out.println("He presionado el boton derecho");
 			marco_raton marc = new marco_raton();
+			marc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			
 			 
@@ -37,9 +39,9 @@ class EventosDeRaton extends MouseAdapter{
 		
 	}
 
-}
+}*/
 // Aquí empezaremos a crear lo que es el Marco que le dará unas proporciones a JFrame
-class marco_raton extends JFrame{
+/*class marco_raton extends JFrame{
 	public marco_raton() {
 		this.setResizable(false);
 		setTitle("Menu");
@@ -50,11 +52,11 @@ class marco_raton extends JFrame{
 	}
 
 	
-	}
+	}*/
 
 //Aquí empezaremos crearemos la lámina que contendrá todo el código del menú en vertical
 
-class Lamina_Menu_Raton extends JPanel{
+/*class Lamina_Menu_Raton extends JPanel{
 	public Lamina_Menu_Raton() {
 		BBDD.initConnection();
 //		Barra del menú
@@ -105,4 +107,4 @@ class Lamina_Menu_Raton extends JPanel{
 	private JTextArea canotacion;
 	private JButton Crear,Leer,Modificar,Borrar,Salir;
 	private static final Scanner  scanner= new Scanner(System.in);
-}
+}*/

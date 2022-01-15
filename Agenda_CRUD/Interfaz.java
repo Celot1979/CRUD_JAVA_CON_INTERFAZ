@@ -1,6 +1,7 @@
 package Agenda_CRUD;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -24,7 +25,7 @@ public class Interfaz {
 		
 		marco m = new marco();
 //		Hace que el objeto principal quede a la escucha del evento del ratón. Que será el encargado de al presionar el botón derecho, apareza una nueva ventana con el menú
-		m.addMouseListener(new EventosDeRaton());
+		//m.addMouseListener(new EventosDeRaton());
 		
 		m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -69,13 +70,15 @@ class lamina extends JPanel{
 		JScrollPane laminaScrollCliente = new JScrollPane(canotacion);
 		canotacion.setLineWrap(true);
 		
-//		Creación de botones y sus funciones dentro de la interfaz
-		Crear = new JButton (" REGISTRAR ");
-		Crear.addActionListener(new ActionListener() {
-			// Cramos los registros al presionar el botón.
+//		Menú emergente
+		JPopupMenu emergente =new JPopupMenu();
+		JMenuItem azul = new JMenuItem("REGISTRAR");
+		azul.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				//setBackground(Color.BLUE);
 				String nom = cnombre.getText();
 				String ape = capellido.getText();
 				String mov = cmovil.getText();
@@ -96,30 +99,37 @@ class lamina extends JPanel{
 //				Después de crear el registro se crea un nuevo objeto de Ventana de registros para que nos proporcione la info de los registros actualizada.
 				marco_Registro mr2 = new marco_Registro();
 				mr2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				
 			}
 			
 		});
-		Leer = new JButton ("MOSTRAR REGISTROS ");
-		Leer.addActionListener(new ActionListener() {
+		emergente.add(azul);
+		
+		
+		JMenuItem rojo = new JMenuItem("MOSTRAR REGISTROS");
+		rojo.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				//setBackground(Color.RED);
+				//System.out.println("Ingrese id de la persona que quiera modifiar los datos:");
 				marco_Registro mr = new marco_Registro();
 				mr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				
-				
 			}
 			
 		});
-		Modificar = new JButton (" MODIFICAR REGISTROS ");
-		Modificar.addActionListener(new ActionListener() {
+		emergente.add(rojo );
+		
+		
+		JMenuItem amarillo = new JMenuItem("MODIFICAR REGISTROS");
+		amarillo.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
-				//System.out.println("Ingrese id de la persona que quiera modifiar los datos:");
+				//setBackground(Color.yellow);
 				String ids = JOptionPane.showInputDialog("Ingresa el Id que queires mdificar");
 				Long resultado_id = Long.parseLong(ids);
 				cid.setText(ids);
@@ -155,13 +165,18 @@ class lamina extends JPanel{
 				}
 			}
 			
+			
+			
 		});
-		Borrar= new JButton ("BORRAR REGISTRO ");
-		Borrar.addActionListener(new ActionListener() {
-
+		emergente.add(amarillo);
+		
+		JMenuItem Borrar_re = new JMenuItem("BORRAR  REGISTROS");
+		Borrar_re.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				//setBackground(Color.yellow);
 				try {
 					BBDD.EliminarRegistros(cid);
 					System.out.println("Se ha podido borrar el registro");
@@ -171,133 +186,40 @@ class lamina extends JPanel{
 				}
 			}
 			
+			
+			
 		});
-		id.setLocation(27, 20);
 		
-		Salir = new JButton (" SALIR ");
-		Salir.addActionListener(new ActionListener() {
+		emergente.add(Borrar_re);
+		
+		
+		
+		JMenuItem Salir_re = new JMenuItem("SALIR PROGRAMA");
+		Salir_re.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				//setBackground(Color.yellow);
 				System.exit(1);
 			}
 			
+			
+			
 		});
 		
-		add(id);
-		add(cid);
-		add(nombre);
-		add(cnombre);
-		add(apellido);
-		add(capellido);
-		add(movil);
-		add(cmovil);
-		add(fijo);
-		add(cfijo);
-		
-		
-		add(anotacion);
-		add(anotacionextra);
-		add(laminaScrollCliente);
+		emergente.add(Salir_re);
 		
 		
 		
-		Inferior.add(Crear);
-		Inferior.add(Leer);
-		Inferior.add(Modificar);
-		Inferior.add(Borrar);
-		Inferior.add(Salir);
-		
-		
-		add(Inferior, BorderLayout.SOUTH);
 		
 		
 		
-	}
-
-	
-	
-	
-	private JLabel id,nombre,apellido,movil,fijo,anotacion,anotacionextra;
-	private JTextField cid,cnombre,capellido,cmovil,cfijo;
-	private JTextArea canotacion;
-	private JButton Crear,Leer,Modificar,Borrar,Salir;
-	private static final Scanner  scanner= new Scanner(System.in);
-}
-
-
-
-
-import java.awt.BorderLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.sql.SQLException;
-import java.util.Scanner;
-
-import javax.swing.*;
-
-
-
-
-public class Interfaz {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		marco m = new marco();
-//		Hace que el objeto principal quede a la escucha del evento del ratón. Que será el encargado de al presionar el botón derecho, apareza una nueva ventana con el menú
-		m.addMouseListener(new EventosDeRaton());
-		
-		m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
-	}
-
-	
-
-}
-class marco extends JFrame{
-	public marco() {
-		this.setResizable(false);
-		setTitle("AGENDA");
-		setBounds(400,400,800,400);
-		add(new lamina());
-		setVisible(true);
 		
-	}
-
-	
-	}
-
-
-class lamina extends JPanel{
-	public lamina() {
-//		Se llama a la función de conectar con la BBDD
-		BBDD.initConnection();
-		JPanel Inferior= new JPanel ();
-		id = new JLabel("ID");
-		cid= new JTextField(3);
-		nombre = new JLabel("Nombre");
-		cnombre = new JTextField(8);
-		apellido = new JLabel("Apellido");
-		capellido = new JTextField(8);
-		movil = new JLabel("Movil");
-		cmovil = new JTextField(8);
-		fijo = new JLabel("Fijo");
-		cfijo = new JTextField(8);
-		anotacion = new JLabel("\t Anotacion");
-		anotacionextra = new JLabel("");
-		canotacion = new JTextArea(15,60);
-		JScrollPane laminaScrollCliente = new JScrollPane(canotacion);
-		canotacion.setLineWrap(true);
+		
+		setComponentPopupMenu(emergente);
 		
 //		Creación de botones y sus funciones dentro de la interfaz
 		Crear = new JButton (" REGISTRAR ");
@@ -329,14 +251,12 @@ class lamina extends JPanel{
 			}
 			
 		});
-		Leer = new JButton ("MOSTRAR REGISTROS ");
+		Leer = new JButton (" MOSTRAR REGISTROS ");
 		Leer.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				marco_Registro mr = new marco_Registro();
-				mr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				
 				
 			}
