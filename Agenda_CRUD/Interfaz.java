@@ -1,19 +1,17 @@
 package Agenda_CRUD;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.sql.SQLException;
 import java.util.Scanner;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
-import javax.swing.*;
 
 
 
@@ -170,7 +168,7 @@ class lamina extends JPanel{
 		});
 		emergente.add(amarillo);
 		
-		JMenuItem Borrar_re = new JMenuItem("BORRAR  REGISTROS");
+		JMenuItem Borrar_re = new JMenuItem(" BORRAR  REGISTROS");
 		Borrar_re.addActionListener(new ActionListener() {
 
 			@Override
@@ -336,6 +334,18 @@ class lamina extends JPanel{
 			
 		});
 		
+		Documentacion= new JButton ("DOCUMENTACIÓN");
+		Licencia= new JButton ("LICENCIA");
+		Licencia.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(null, "Programa registrado por Daniel Gil " + "\n" + "Solo uso formativo", "LEER ATENTAMENTE", JOptionPane.ERROR_MESSAGE);
+			}
+			
+		});
+		
 		add(id);
 		add(cid);
 		add(nombre);
@@ -354,11 +364,15 @@ class lamina extends JPanel{
 		
 		
 		
-		Inferior.add(Crear);
-		Inferior.add(Leer);
-		Inferior.add(Modificar);
-		Inferior.add(Borrar);
-		Inferior.add(Salir);
+		add(Crear);
+        add(Leer);
+        add(Modificar);
+        add(Borrar);
+        add(Salir);
+
+        Inferior.add(Documentacion);
+        Inferior.add(Licencia);
+
 		
 		
 		add(Inferior, BorderLayout.SOUTH);
@@ -373,7 +387,7 @@ class lamina extends JPanel{
 	private JLabel id,nombre,apellido,movil,fijo,anotacion,anotacionextra;
 	private JTextField cid,cnombre,capellido,cmovil,cfijo;
 	private JTextArea canotacion;
-	private JButton Crear,Leer,Modificar,Borrar,Salir;
+	private JButton Crear,Leer,Modificar,Borrar,Salir,Documentacion,Licencia;;
 	private static final Scanner  scanner= new Scanner(System.in);
 }
 
