@@ -1,16 +1,20 @@
 package Agenda_CRUD;
 
-
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.sql.SQLException;
 import java.util.Scanner;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+
+import javax.swing.*;
+
 
 
 
@@ -70,65 +74,50 @@ class lamina extends JPanel{
 		
 //		Menú emergente
 		JPopupMenu emergente =new JPopupMenu();
-		JMenuItem azul = new JMenuItem("REGISTRAR");
-		azul.addActionListener(new ActionListener() {
+		
+		
+		JMenuItem Registrar_Raton = new JMenuItem("REGISTRAR");
+		 Registrar_Raton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				//setBackground(Color.BLUE);
-				String nom = cnombre.getText();
-				String ape = capellido.getText();
-				String mov = cmovil.getText();
-				String fij = cfijo.getText();
-				String cano = canotacion.getText();
+				// Inicializamos el hilo que nos abre la ventana de registros. En este caso vía ratón botón derecho.
+
 				
-				
-				
-				BBDD.Crear(nom, ape, mov, fij, cano);
-				
-				cnombre.setText("");
-				capellido.setText("");
-				cmovil.setText("");
-				cfijo.setText("");
-				canotacion.setText("");
-				
-				JOptionPane.showMessageDialog(null, "Registro realizado con éxito");
-//				Después de crear el registro se crea un nuevo objeto de Ventana de registros para que nos proporcione la info de los registros actualizada.
-				marco_Registro mr2 = new marco_Registro();
-				mr2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				Ventana_Registros VR = new Ventana_Registros();
+				Thread V = new Thread(VR);
+				V.start();
 				
 			}
 			
 		});
-		emergente.add(azul);
+		emergente.add( Registrar_Raton);
 		
 		
-		JMenuItem rojo = new JMenuItem("MOSTRAR REGISTROS");
-		rojo.addActionListener(new ActionListener() {
+		JMenuItem  Mostrar_Raton = new JMenuItem("MOSTRAR REGISTROS");
+		Mostrar_Raton .addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				//setBackground(Color.RED);
-				//System.out.println("Ingrese id de la persona que quiera modifiar los datos:");
-				marco_Registro mr = new marco_Registro();
-				mr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				// Mediante la acción del botón se despliega un nuevo JFrame que está vinculado al hilo. En ese nuevo JFRame se realizará los registros en la BBDD
+				Ventana_Leer_Registros r = new Ventana_Leer_Registros();
+				Thread t = new Thread(r);
+				t.start();
 				
 			}
 			
 		});
-		emergente.add(rojo );
+		emergente.add(Mostrar_Raton );
 		
 		
-		JMenuItem amarillo = new JMenuItem("MODIFICAR REGISTROS");
-		amarillo.addActionListener(new ActionListener() {
+		JMenuItem Modificar_Raton = new JMenuItem("MODIFICAR REGISTROS");
+		Modificar_Raton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				//setBackground(Color.yellow);
-				String ids = JOptionPane.showInputDialog("Ingresa el Id que queires mdificar");
+				/*String ids = JOptionPane.showInputDialog("Ingresa el Id que queires mdificar");
 				Long resultado_id = Long.parseLong(ids);
 				cid.setText(ids);
 				String nombre =JOptionPane.showInputDialog("Ingresa el nuevo nombre: ");
@@ -160,16 +149,20 @@ class lamina extends JPanel{
 				} catch (SQLException | InterruptedException e1) {
 					// TODO Auto-generated catch block
 					System.out.println("No se ha podido modificar");
-				}
+				}*/
+				Leer_Registros ModificarRegistro = new Leer_Registros();
+				Thread Modificar_Rarto= new Thread(ModificarRegistro);
+				 Modificar_Rarto.start();
+				
 			}
 			
 			
 			
 		});
-		emergente.add(amarillo);
+		emergente.add(Modificar_Raton);
 		
-		JMenuItem Borrar_re = new JMenuItem(" BORRAR  REGISTROS");
-		Borrar_re.addActionListener(new ActionListener() {
+		JMenuItem Borrar_Raton = new JMenuItem(" BORRAR  REGISTROS");
+		Borrar_Raton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -188,7 +181,7 @@ class lamina extends JPanel{
 			
 		});
 		
-		emergente.add(Borrar_re);
+		emergente.add(Borrar_Raton);
 		
 		
 		
@@ -226,36 +219,22 @@ class lamina extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String nom = cnombre.getText();
-				String ape = capellido.getText();
-				String mov = cmovil.getText();
-				String fij = cfijo.getText();
-				String cano = canotacion.getText();
-				
-				
-				
-				BBDD.Crear(nom, ape, mov, fij, cano);
-				
-				cnombre.setText("");
-				capellido.setText("");
-				cmovil.setText("");
-				cfijo.setText("");
-				canotacion.setText("");
-				
-				JOptionPane.showMessageDialog(null, "Registro realizado con éxito");
-//				Después de crear el registro se crea un nuevo objeto de Ventana de registros para que nos proporcione la info de los registros actualizada.
-				marco_Registro mr2 = new marco_Registro();
-				mr2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				Ventana_Registros VR = new Ventana_Registros();
+				Thread V = new Thread(VR);
+				V.start();
 			}
 			
 		});
+//		Botón y método ActionListener  para ejecutar el hilo que realiza la lectura de hilos. 
 		Leer = new JButton (" MOSTRAR REGISTROS ");
 		Leer.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				Ventana_Leer_Registros r = new Ventana_Leer_Registros();
+				Thread t = new Thread(r);
+				t.start();
 				
 			}
 			
@@ -381,6 +360,20 @@ class lamina extends JPanel{
 		
 	}
 
+//	Clase planificada para gestionar la ventana emergente de lectura de registros
+	class Ventana_Leer_Registros implements Runnable{
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			
+			marco_Registro  mr = new marco_Registro();
+		
+			
+		}
+		
+	}
+	
 	
 	
 	

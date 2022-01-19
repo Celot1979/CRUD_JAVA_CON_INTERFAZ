@@ -1,3 +1,5 @@
+package Agenda_CRUD;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -52,8 +54,33 @@ public class BBDD {
 				
 			}
 		}
-		
-
+//		------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//		------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//		Leer registros especificos
+		public static void leerRegistroEspecifico( long id, String NuevoNom, String NuevoApe, String movilB,String fijo,String anotacion) throws SQLException {
+			//Long resultado = Long.parseLong(cid.getText());
+			PreparedStatement stml = connection.prepareStatement("SELECT * FROM agenda2 WHERE ID = ?");
+			stml.setLong(1, id);
+			ResultSet resultados = stml.executeQuery();
+			
+			
+			NuevoNom = resultados.getString("nombre");
+			NuevoApe = resultados.getString("apellido");
+			movilB = resultados.getString("movil");
+			fijo = resultados.getString("fijo");
+			anotacion = resultados.getString("anotacion");
+			
+			/*if(resultados.next()) {
+				cnombre.setText(NuevoNom);
+				capellido.setText(NuevoApe);
+				cmovil.setText(movilB);
+				cfijo.setText(fijo);
+				canotacion.setText(nombre);
+			}*/
+			
+		}
+//		----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//		------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		// Eliminar Registros
 		
 		public static void EliminarRegistros(JTextField cid) throws SQLException {
@@ -96,8 +123,10 @@ public class BBDD {
 	private static String url = "jdbc:postgresql://localhost:5433/agenda2";
     private  static Connection connection;
     private JTextArea contenido;
-    private JTextField cid;
+
+    private JTextField cid,cnombre,capellido,cmovil,cfijo;
 
 }
+
 
 
